@@ -1,4 +1,5 @@
 import {userService} from '../service/userService.js'
+import { WSresponse } from "../libs/WSresponse.js";
 import path from 'path';
 import {fileURLToPath} from 'url';
 import checkAuthentication from "../Strategy/CheckAuth.js"
@@ -8,17 +9,18 @@ const __dirname = path.dirname(__filename);
 
 
 const Login = async(req, res)=>{
-    const {url , method} = req
-    try{
-        {
-            const filters = req
-            const response = await userService.getUserByMail(mail)
-            return response
-          }
-    }
-    catch(err){
-      res.sendStatus(500);
-    }
+  const {url , method} = req
+
+  try{
+      {
+          const filters = req
+          const response = await userService.getUserOneByFilter(filters)
+          return response
+        }
+  }
+  catch(err){
+    res.sendStatus(500);
+  }
 }
 
 const getLogin = async (req, res) => {
@@ -32,13 +34,15 @@ const getLogin = async (req, res) => {
 
   const getRegister = async(req, res)=>{
     const {url , method} = req
+
     try{
         { 
-          res.sendFile(path.join(__dirname,"../../views/register.html"));
+          res.render("register", {} );
         }
     }
-    catch(err){
-        logger.error(`Ruta ${method}${url}:  ${err}`);
+     catch(err){
+      console.log(err);
+      res.json(new WSresponse(null, err, true, 489));
     }
 }
 

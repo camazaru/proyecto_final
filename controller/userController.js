@@ -3,8 +3,8 @@ import {userService} from "../service/userService.js";
 
 const createUser = async (req, res) => {
   try {
-    const response = await userService.createUser(req.body);
-    res.json(new WSresponse(response, "User created"));
+    const createdUser = await userService.createUser(req);
+    return JSON.parse(createdUser)
   } catch (err) {
     res.json(new WSresponse(null, "Error creating user", err, 500));
   }
@@ -12,19 +12,43 @@ const createUser = async (req, res) => {
 
 
 
-const getUserByMail = async (req, res) => {
+const getOneUser = async (req, res) => {
   try {
-    const response = await userService.getUserByMail(req.params.mail);
-    res.json(new WSresponse(response, "User finded"));
+    const filters = { _id: req.params.id };
+    const user = await userService.getUserOneByFilter(filters);
 
+    res.json(user);
   } catch (err) {
-    res.json(new WSresponse(null, "Error creating user", err, 500));
+    console.log(err);
+    if (err.statusCode) {
+      return res.status(err.statusCode).send(err);
+    }
+
+    res.sendStatus(500);
   }
 };
+
+
+const login = async (req, res) => {
+  try {
+    const token = await userService.login(req.body);
+    console.log(token);
+    res.json({ token });
+  } catch (err) {
+    console.log(err);
+    if (err.statusCode) {
+      return res.status(err.statusCode).send(err);
+    }
+
+    res.sendStatus(500);
+  }
+};
+
+
 
 export const userController = { 
   createUser, 
-  getUserByMail,
-  //login
+  getOneUser,
+  login
 };
 

@@ -22,9 +22,24 @@ const __dirname = path.dirname(__filename);            //Normalizar Rutas
 const app = express()
 const port = process.env.PORT || 5000
 
+function hashPassword(password){
+    return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
+}
+
+function isvalidpassword(reqPassword,dbPassword){
+    return bcrypt.compareSync(reqPassword,dbPassword)
+}
+
+const servidor = app.listen(port)
+console.log(`Server listening on port ${port}`)
+
+
+
+
 app.use(express.static('public'))
 
 app.use(json());
+app.use(express.urlencoded({ extended: true }));
 
 function print(objeto)
 {
@@ -48,10 +63,15 @@ app.use(session({
         httpOnly:false,
         secure: false,
         maxAge: config.api.tiemposession
-    }
+    },
+    rolling: true,
+    resave: false,
+    saveUninitialized: false,
+
   }))
   app.use(passport.initialize());
   app.use(passport.session());
+  /* ***************************************************** */
   passport.use('register',loginStrat.registerStrategy)
   passport.use('login',loginStrat.loginStrategy)
   
@@ -60,8 +80,11 @@ app.use(session({
   })
   
   passport.deserializeUser((id,done)=>{
-      datosLogin.User.findById(id,done)
+    loginStrat.User.findById(id,done)
   })
+
+  app.use(express.static('avatars'))
+  app.use(express.static('productimage'))
 
 app.set('view engine', 'pug')                                              //usar pug
 
@@ -95,6 +118,21 @@ app.use(session({
 }))
 
 
-app.listen(port)
-console.log(`Server listening on port ${port}`)
+const expressServer = servidor
+const io = new Server(expressServer);
+
+let messagesArray = []
+io.on('connection', async socket => {
+  messagesArray = await MensajesController.ReadMensajes()
+  socket.emit('server:mensajes', messagesArray)
+  socket.on('client:menssage', async messageInfo => {
+      await MensajesController.createMensaje(messageInfo)
+      messagesArray = await MensajesController.ReadMensajes()
+      io.emit('server:mensajes', messagesArray)
+  })
+})
+
+
+
+
 

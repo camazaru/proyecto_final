@@ -5,7 +5,16 @@ const userRoute = Router();
 
 userRoute
     .route("/")
-    .get(userController.getUserByMail);
+    .post(userController.createUser)
+
+    userRoute
+    .route("/:id")
+    .get(userController.getOneUser)
+
+
+    userRoute
+    .route("/login") 
+    .post(userController.login)
     
 
 export default userRoute;
