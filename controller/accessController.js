@@ -1,6 +1,8 @@
 import {userService} from '../service/userService.js'
 import path from 'path';
 import {fileURLToPath} from 'url';
+import checkAuthentication from "../Strategy/CheckAuth.js"
+import {loginStrat} from "../Strategy/loginStrategy.js"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 

@@ -3,7 +3,7 @@ import {userController} from '../controller/indexController.js'
 import { cartController } from '../controller/indexController.js'
 import {loginController} from '../controller/indexController.js'
 import bcrypt from 'bcrypt'
-import User from '../models/modelsUser.js'
+import {User} from "../models/userModels.js"
 
 function hashPassword(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
@@ -16,7 +16,7 @@ function isvalidpassword(reqPassword,dbPassword){
 const registerStrategy = new LocalStrategy({passReqToCallback:true},
 async (req,username,password,done)=>{
     //console.log("dato 1", username)
-const{nombre,direccion} = req.body
+const{usernam,address} = req.body
     const {url , method, file} = req
     try{
        
@@ -36,12 +36,12 @@ const{nombre,direccion} = req.body
         {
             return done(null,null)   
         }
-        const newCarrito = {
-            usuarioid: createdUser.id.toString(),
-            productos: [],
+        const newCart = {
+            userId: createdUser.id.toString(),
+            products: [],
         }
         
-        const createCarrito = await carritoController.createCarrito(newCarrito)
+        const createCart = await cartController.createCart(newCart)
         done(null,createdUser)
     } catch(error){
         logger.error(` Ruta ${method}${url} error al registrar usuario`)
@@ -51,7 +51,7 @@ const{nombre,direccion} = req.body
 
 const loginStrategy = new LocalStrategy(async (username,password,done)=>{
     try{
-        const user = await loginControllers.Login({username})
+        const user = await accessController.Login({username})
 
         if(!user || !isvalidpassword(password,user.password)){
             //console.log("diferente")
@@ -67,7 +67,7 @@ const loginStrategy = new LocalStrategy(async (username,password,done)=>{
 
 })
 
-export default {
+export const loginStrat = {
     registerStrategy,
     loginStrategy,
     logger,
