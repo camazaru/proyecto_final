@@ -1,14 +1,15 @@
 import express, { application } from 'express'
 import session from "express-session"
 import compression from 'compression'
-//import passport from 'passport';
+import passport from 'passport';
 import bodyParser from "body-parser"
+import { Server } from "socket.io";
 //import os from "os";
 import { json } from "express";
 import path from "path"                                //Normalizar Rutas
 import {fileURLToPath} from 'url';                     //Normalizar Rutas
 import { url } from 'inspector';
-//import datosLogin from '../Strategy/loginStrategy.js'
+import {loginStrat} from '../Strategy/loginStrategy.js'
 import { WSresponse } from "../libs/WSresponse.js";
 import config from './config.js';                      // 
 import connectDB from './controllersdb.js'
@@ -31,12 +32,36 @@ function print(objeto)
 }
 
 connectDB(config.database.dbUrl, (err) => {
-  if (err) return datosLogin.logger.error("DB Connection error", err);
+  if (err) return loginStrat.logger.error("DB Connection error", err);
   console.log("DB Connected");
 })
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}))
+
+app.use(session({
+    secret: config.api.apisecret,
+    resave: false,
+    saveUninitialized: false,
+    rolling: true,
+    cookie:{
+        httpOnly:false,
+        secure: false,
+        maxAge: config.api.tiemposession
+    }
+  }))
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.use('register',loginStrat.registerStrategy)
+  passport.use('login',loginStrat.loginStrategy)
+  
+  passport.serializeUser((user,done)=>{
+      done(null,user.id)
+  })
+  
+  passport.deserializeUser((id,done)=>{
+      datosLogin.User.findById(id,done)
+  })
 
 app.set('view engine', 'pug')                                              //usar pug
 

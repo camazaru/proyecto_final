@@ -1,0 +1,1 @@
+import checkAuthentication from "../Strategy/CheckAuth.js";

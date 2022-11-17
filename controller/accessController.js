@@ -26,7 +26,7 @@ const getLogin = async (req, res) => {
       var user = req.user;
       res.redirect('/product');
     } else {
-
+      res.render("login", {} );
     }
   }
 

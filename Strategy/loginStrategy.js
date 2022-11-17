@@ -1,7 +1,8 @@
 import {Strategy as LocalStrategy}  from 'passport-local'
 import {userController} from '../controller/indexController.js'
 import { cartController } from '../controller/indexController.js'
-import {loginController} from '../controller/indexController.js'
+import {accessController} from '../controller/indexController.js'
+import { WSresponse } from "../libs/WSresponse.js";
 import bcrypt from 'bcrypt'
 import {User} from "../models/userModels.js"
 
@@ -44,9 +45,8 @@ const{usernam,address} = req.body
         const createCart = await cartController.createCart(newCart)
         done(null,createdUser)
     } catch(error){
-        logger.error(` Ruta ${method}${url} error al registrar usuario`)
-        done(null,null)
-    }
+        res.json(new WSresponse(null, "error al registrar usuario", err, 500));
+      }
 })
 
 const loginStrategy = new LocalStrategy(async (username,password,done)=>{
@@ -61,15 +61,14 @@ const loginStrategy = new LocalStrategy(async (username,password,done)=>{
 
     }catch(error)
     {
-        logger.error('server.js error login')
-        done('Error login',null)
-    }
+        res.json(new WSresponse(null, "server.js error login", err, 500));
+      }
 
-})
+
+ })
 
 export const loginStrat = {
     registerStrategy,
     loginStrategy,
-    logger,
     User
 }
