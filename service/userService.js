@@ -18,12 +18,12 @@ const createUser = async (req,res) => {
   const filters = req.email ; 
 
   console.log("aqui", filters)
-  const existingUser = await User.findOne({username:filters});
+  const existingUser = await User.findOne({nickname:filters});
   if (existingUser) {
     return JSON.stringify(new CustomError(false, "Email already in use", true, 400));
       }
       const createdUser = await User.create({
-        username: req.username,
+        nickname: req.nickname,
         email: req.email,
         password: req.password,
         address: req.address,

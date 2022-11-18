@@ -1,7 +1,7 @@
 import { Schema, model } from "mongoose";
  
 const messageSchema = new Schema({
-    username: { type: String, required: true },
+    nickname: { type: String, required: true },
     email: { type: String, required: true },
     textmessage: { type: String, required: true },
     sendtime: { type : Date, default: Date.now },

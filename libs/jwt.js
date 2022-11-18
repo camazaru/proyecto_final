@@ -32,7 +32,7 @@ const authMiddleware = (req, res, next) => {
   const generateToken = (user) => {
     const payload = {
       data: {
-        username: user.username,
+        nickname: user.nickname,
       },
     };
     return jwt.sign(payload, privateKey, { expiresIn: "30m" });

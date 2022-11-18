@@ -10,10 +10,12 @@ const __dirname = path.dirname(__filename);
 
 const Login = async(req, res)=>{
   const {url , method} = req
-
+console.log(req)
   try{
+    console.log("voy aqui uno")
       {
           const filters = req
+          console.log(req)
           const response = await userService.getUserOneByFilter(filters)
           return response
         }
@@ -25,6 +27,7 @@ const Login = async(req, res)=>{
 
 const getLogin = async (req, res) => {
     if (req.isAuthenticated()) {
+      console.log("voy aqui 2") 
       var user = req.user;
       res.redirect('/product');
     } else {

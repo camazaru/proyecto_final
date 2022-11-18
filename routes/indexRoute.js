@@ -15,7 +15,6 @@ const router = Router()
 router.use("/",rootRoute);
 router.use("/user",userRoute);
 router.use("/product", checkAuthentication, productRoute )
-router.use("/product/category", productRoute )
 //router.use("/cart", checkAuthentication, cartRoute);
 //router.use("/order", checkAuthentication, orderRoute);
 router.use("/login", accessRoute);

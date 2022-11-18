@@ -1,20 +1,20 @@
 import { Router } from "express";
-import {userController} from "../controller/indexController.js";
+import {indexController} from "../controller/indexController.js";
 
 const userRoute = Router();
 
 userRoute
     .route("/")
-    .post(userController.createUser)
+    .post(indexController.userController.createUser)
 
     userRoute
     .route("/:id")
-    .get(userController.getOneUser)
+    .get(indexController.userController.getOneUser)
 
 
     userRoute
     .route("/login") 
-    .post(userController.login)
+    .post(indexController.userController.login)
     
 
 export default userRoute;

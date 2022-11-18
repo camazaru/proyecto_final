@@ -1,23 +1,23 @@
 import { Router } from "express";
-import {productController} from "../controller/indexController.js";
+import {indexController} from "../controller/indexController.js";
 import roleChecker from "../libs/roleChecker.js";
 
 const productRoute  = Router();
 
 productRoute
   .route("/")
-  .get(productController.getAllProducts)
-  .post(roleChecker.checkIfUserIsAdmin, productController.createProduct);
+  .get(indexController.productController.getAllProducts)
+  .post(roleChecker.checkIfUserIsAdmin, indexController.productController.createProduct);
  
   productRoute
   .route("/:id")
-  .get(productController.getOneProduct)
-  .put(roleChecker.checkIfUserIsAdmin, productController.updateProduct)
-  .delete(roleChecker.checkIfUserIsAdmin, productController.deleteProduct);
+  .get(indexController.productController.getOneProduct)
+  .put(roleChecker.checkIfUserIsAdmin, indexController.productController.updateProduct)
+  .delete(roleChecker.checkIfUserIsAdmin, indexController.productController.deleteProduct);
 
   productRoute
   .route("/:category")
-  .get(productController.getProductByCategory)
+  .get(indexController.productController.getProductByCategory)
 
 
 

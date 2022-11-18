@@ -20,8 +20,8 @@ const createOrden = async(req, res)=>{
     //const ordenCrated = await ordenService.createOrden()
     const from ='Server Node.js'
     const {idusuario} = req.body
-    const subject = `Nuevo pedido de: Saymon correo: smeraz@genomi-k.com`
-    const to = 'smeraz@genomi-k.com'
+    const subject = `Nuevo pedido de:  correo: `
+    const to = ''
     let htmlTable = ''
     let TotalCompra = 0
     let TotalArticulos = 0
@@ -89,7 +89,7 @@ const datosOrden = async(req, res)=>{
     
         //console.log("datos a usar para el correo:", mailOptions)
     }
-export default {
+export const orderControllers = {
     createOrden,
     datosOrden
 }

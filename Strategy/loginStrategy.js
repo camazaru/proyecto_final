@@ -1,8 +1,9 @@
 import {Strategy as LocalStrategy}  from 'passport-local'
-import {userController} from '../controller/indexController.js'
-import { cartController } from '../controller/indexController.js'
 
-import {accessController} from '../controller/indexController.js'
+//import {userController} from '../controller/indexController.js'
+//import { cartController } from '../controller/indexController.js'
+
+import {indexController} from '../controller/indexController.js'
 import { WSresponse } from "../libs/WSresponse.js";
 import bcrypt from 'bcrypt'
 import {User} from "../models/userModels.js"
@@ -11,18 +12,19 @@ function hashPassword(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
 }
 
-function isvalidpassword(reqPassword,dbPassword){
+function isValidPassword(reqPassword,dbPassword){
     return bcrypt.compareSync(reqPassword,dbPassword)
 }
 
 const registerStrategy = new LocalStrategy(
     { passReqToCallback: true },
-    async (req, username, password, done) => {
-      try {
-        const existingUser = await User.findOne({ username });
+    async (req, email, password, done) => {
+console.log(uno)
+       try {
+        const existingUser = await User.findOne({ email });
   
         if (existingUser) {
-          return done(null, null);
+          return done (null, null);
         }
   
         const newUser = {
@@ -34,10 +36,10 @@ const registerStrategy = new LocalStrategy(
         };
   
         const createdUser = await User.create(newUser);
-        req.user = username;
+        req.user = nickname;
         done(null, createdUser);
       } catch (err) {
-        console.log("Erro registrando usuario", err);
+        console.log("Error registrando usuario", err);
         done("Erro en registro", null);
       }
     }
@@ -49,9 +51,11 @@ const registerStrategy = new LocalStrategy(
         }
  */
 
-        const loginStrategy = new LocalStrategy(async (username, password, done) => {
+        const loginStrategy = new LocalStrategy(async (email, password, done) => {
             try {
-              const user = await User.findOne({ email:username });
+console.log("dos")
+
+              const user = await User.findOne({ email });
           
               if (!user || !isValidPassword(password, user.password)) {
                 return done(null, null);
