@@ -4,6 +4,7 @@ import {indexController} from '../controller/indexController.js'
 import bcrypt from 'bcrypt'
 import {User} from '../models/userModels.js'
 
+
 function hashPassword(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
 }
@@ -12,6 +13,48 @@ function isvalidpassword(reqPassword,dbPassword){
     return bcrypt.compareSync(reqPassword,dbPassword)
 }
 
+
+const registerStrategy = new LocalStrategy(
+    { passReqToCallback: true },
+    async (req, username, password, done) => {
+      try {
+
+        const existingUser = await User.findOne({ email:username });
+  
+       console.log("encontrado",existingUser)
+
+
+        if (existingUser) {
+          return done(null, null);
+        }
+      
+        console.log("encontrado",username)
+
+        const newUser = {
+            nickname: req.body.nickname,
+            email: req.body.username,
+            password: hashPassword(password),
+            address: req.body.address,
+            avatar: req.body.avatar,
+            role:"USER"
+        
+        
+        };
+
+        console.log("estructura", newUser)
+  
+        const createdUser = await User.create(newUser);
+        req.user = username;
+        done(null, createdUser);
+      } catch (err) {
+        console.log("Erro registrando usuario", err);
+        done("Erro en registro", null);
+      }
+    }
+  );
+
+
+/*
 const registerStrategy = new LocalStrategy({passReqToCallback:true},
 async (req,username,password,done)=>{
   
@@ -20,17 +63,16 @@ const{nickname,address} = req.body
       
     try{
        const newUser = {
-          nickname,
+            nickname,
             username,
             password: hashPassword(password),
             address,
-            avatar: `${file.filename}`
+            avatar: `${file.filename}`,
+            role: "USER"
         }
-        console.log("esperando", newUser )
-
+       
         const createdUser = await indexController.userController.createUser(newUser)
-
-        console.log("esperando uno", createdUser )
+      
 
         if(createdUser.error)
         {
@@ -51,6 +93,8 @@ const{nickname,address} = req.body
         done(null,null)
     }
 })
+
+*/
 
 const loginStrategy = new LocalStrategy(async (username,password,done)=>{
     try{
