@@ -15,7 +15,7 @@ const createCart = async (req, res) => {
   const getCart = async (req, res) => {
     try {
       const response = await cartService.getCart(req.body);
-      res.json(new WSresponse(response, "Cart"));
+      res.render("cart", {Cart:response} );
     
     } catch (err) {
       console.log(err);

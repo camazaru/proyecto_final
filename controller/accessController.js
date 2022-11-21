@@ -9,13 +9,10 @@ const __dirname = path.dirname(__filename);
 
 const Login = async(req, res)=>{
   const {url , method} = req
-
   try{
-
       {
           const filters = req
            const response = await userService.getUserOneByFilter(filters)
-           
           return response
         }
   }
@@ -37,7 +34,6 @@ const getLogin = async (req, res) => {
   const getRegister = async(req, res)=>{
     const {url , method} = req
     try{
-      
         { 
           res.render("register", );
         }

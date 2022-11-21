@@ -37,12 +37,6 @@ const createUser = async (req,res) => {
 
 
 
-const getUserByMail = async(mail) =>{
-
-  const user = await userDao.getUserByMail(mail);
-
-  return user
-}
 
 
 
@@ -55,4 +49,4 @@ const getUserOneByFilter = async (filters) => {
 
 
 
-export const userService = { createUser, getUserByMail, getUserOneByFilter }
+export const userService = { createUser, getUserOneByFilter }

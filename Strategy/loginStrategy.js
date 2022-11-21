@@ -66,7 +66,7 @@ const registerStrategy = new LocalStrategy(
 
 const loginStrategy = new LocalStrategy(async (username,password,done)=>{
     try{
-        const user = await indexController.accessController.Login({username})
+        const user = await indexController.accessController.Login({email:username})
 
         if(!user || !isvalidpassword(password,user.password)){
             

@@ -1,19 +1,19 @@
 import {cartDao} from "../dao/cartDao.js"
 
 const getCart = async({userId}) =>{
-    const data = await cartDao.getCart({userId})
+    const data = await cartDao.getCart({username:userId})
 
     return data
 }
 
 const getCartUserId = async({userId , productId}) =>{
-    const data = await cartDao.getCartUserId({userId, productId})
+    const data = await cartDao.getCartUserId({username:userId, product:productId})
 
     return data
 }
 
 const updateCartId = async({userId, productId}) =>{
-    const data = await cartDao.updateCartId({userId, productId})
+    const data = await cartDao.updateCartId({username:userId, product:productId})
 
     return data
 }
