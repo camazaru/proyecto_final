@@ -18,7 +18,7 @@ const authMiddleware = (req, res, next) => {
       if (err) {
         return res.status(401).json({
           error: true,
-          message: "You dont hace permission to visit this page2",
+          message: "You dont have permission to visit this page2",
         });
       }
   
@@ -32,7 +32,7 @@ const authMiddleware = (req, res, next) => {
   const generateToken = (user) => {
     const payload = {
       data: {
-        nickname: user.nickname,
+        username: user.username,
       },
     };
     return jwt.sign(payload, privateKey, { expiresIn: "30m" });

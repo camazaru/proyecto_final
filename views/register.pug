@@ -13,12 +13,12 @@ form(action="/register",method="POST")
   label(for="nickname" autocomplete="off") Ingresa tu nickname
   input#nickname(type="text", name="nickname")
   label(for="email" autocomplete="off") Ingresa tu email
-  input#email(type="email", name="email")
+  input#email(type="email", name="username")
   label(for="password" autocomplete="off") Ingresa tu password
   input#password(type="text", name="password")
-  label(for="direccion" autocomplete="off") Ingresa tu direccion
-  input#direccion(type="text", name="direccion")
+  label(for="address" autocomplete="off") Ingresa tu direccion
+  input#direccion(type="text", name="address")
   label(for="avatar") Selecciona avatar
   input#avatar(type="file", name="avatar")
-  button(type="submit") Submit
+  button(type="submit" value="signup") Submit
   

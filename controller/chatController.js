@@ -1,15 +1,20 @@
-const chatController = async (req, res) => {
-    try {
-  
-      res.render("chat", {} );
-    } catch (err) {
-      console.log(err);
-      if (err.statusCode) {
-        return res.status(err.statusCode).send(err);
-      }
-  
-      res.sendStatus(500);
+const getChat = async (req, res) => {
+  try {
+    const response = {
+      usuariolog: req.user._id.toString(),
+      username: req.user.username,
+      nombre: req.user.nombre,
+      avatar: req.user.avatar
     }
-  };
-  
-  export default {chatController};
+    res.render("chat",response);
+  } catch (err) {
+    console.log(err);
+    if (err.statusCode) {
+      return res.status(err.statusCode).send(err);
+    }
+
+    res.sendStatus(500);
+  }
+};
+
+export default {getChat};

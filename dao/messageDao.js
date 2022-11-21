@@ -1,4 +1,4 @@
-import { Message, Message } from "../models/messageModel.js";
+import {Message} from "../models/messageModel.js";
 
 const createMessage = async (messageToCreate) => {
     const createdMessage = await Message.create(messageToCreate);
@@ -12,5 +12,7 @@ const createMessage = async (messageToCreate) => {
 
 
 export const messageDao = { createMessage, readMessage };
+
+
 
 

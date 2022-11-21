@@ -1,7 +1,8 @@
 import express, { json } from "express";
 import session from "express-session"
 import mongoose from "mongoose";
-import config from './config.js';                      //
+import config from './config.js';  
+import bodyParser from "body-parser"                    //
 import router from '../routes/indexRoute.js'
 import path from "path"                                //Normalizar Rutas
 import {fileURLToPath} from 'url';                     //Normalizar Rutas
@@ -10,12 +11,17 @@ const __dirname = path.dirname(__filename);            //Normalizar Rutas
 import { Server } from "socket.io";
 import compression from 'compression'
 import {loginStrat} from '../Strategy/loginStrategy.js'
+import { WSresponse } from "../libs/WSresponse.js";
+import { url } from 'inspector';
 import passport from 'passport';
 import {indexController} from "../controller/indexController.js"
 import connectDB from './controllersdb.js'
+import { Console } from "console";
 
 const app = express()
+app.use(express.static('public'))
 app.set('view engine', 'pug')                                              //usar pug
+
 const port = process.env.PORT || 5000
 
 const servidor = app.listen(port)
@@ -27,14 +33,15 @@ app.use(express.urlencoded({ extended: true }));
 
 
 app.use(session({
-    secret: config.api.apisecret,
+ 
+    secret: config.apisecret,
     resave: false,
     saveUninitialized: false,
     rolling: true,
     cookie:{
         httpOnly:false,
         secure: false,
-        maxAge: config.api.tiemposession
+        maxAge: config.tiemposession
     },
     rolling: true,
     resave: false,
@@ -47,7 +54,7 @@ app.use(session({
   passport.use('login',loginStrat.loginStrategy)
   
   passport.serializeUser((user,done)=>{
-     
+
       done(null,user.id)
   })
   
@@ -70,87 +77,14 @@ connectDB(config.database.dbUrl, (err) => {
   const expressServer = servidor
   const io = new Server(expressServer);
   
-  let messagesArray = []
+  let messageArray = []
   io.on('connection', async socket => {
-    messagesArray = await MensajesController.ReadMensajes()
-    socket.emit('server:mensajes', messagesArray)
+    messageArray = await indexController.messageController.ReadMensajes()
+    socket.emit('server:mensajes', messageArray)
     socket.on('client:menssage', async messageInfo => {
-        await MensajesController.createMensaje(messageInfo)
-        messagesArray = await MensajesController.ReadMensajes()
-        io.emit('server:mensajes', messagesArray)
+        await indexController.messageController.createMessage(messageInfo)
+        messageArray = await MensajesController.readMessage()
+        io.emit('server:mensajes', messageArray)
     })
   })
-
-
-
-
-
-/*
-
-import bodyParser from "body-parser"
-
-
-//import os from "os";
-
-
-import { url } from 'inspector';
-
-import { WSresponse } from "../libs/WSresponse.js";
-
-
-
-
-
-
-
-
-
-
-function hashPassword(password){
-    return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
-}
-
-function isvalidpassword(reqPassword,dbPassword){
-    return bcrypt.compareSync(reqPassword,dbPassword)
-}
-
-
-
-app.use(express.static('public'))
-
-
-
-
-function print(objeto)
-{
-    console.info(util.inspect(objeto,false,12,true))
-}
-
-
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}))
-
-  app.use(express.static('avatars'))
-  app.use(express.static('productsImg'))
-
-
-
-app.use(compression())
-
-app.use(express.json());
-
-
-
-//app.use(express.urlencoded({ extended: true }));                     // lee datos de un formulario
-
-
-
-
-
-
-
-
-
-*/
-
 

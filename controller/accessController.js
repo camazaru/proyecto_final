@@ -2,21 +2,20 @@ import {userService} from '../service/userService.js'
 import { WSresponse } from "../libs/WSresponse.js";
 import path from 'path';
 import {fileURLToPath} from 'url';
-import checkAuthentication from "../Strategy/CheckAuth.js"
-import {loginStrat} from "../Strategy/loginStrategy.js"
+import { url } from 'inspector';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
 const Login = async(req, res)=>{
   const {url , method} = req
-console.log(req)
+
   try{
-    console.log("voy aqui uno")
+
       {
           const filters = req
-          console.log(req)
-          const response = await userService.getUserOneByFilter(filters)
+           const response = await userService.getUserOneByFilter(filters)
+           
           return response
         }
   }
@@ -27,22 +26,22 @@ console.log(req)
 
 const getLogin = async (req, res) => {
     if (req.isAuthenticated()) {
-      console.log("voy aqui 2") 
+ 
       var user = req.user;
       res.redirect('/product');
     } else {
-      res.render("login", {} );
+      res.render("login" );
     }
   }
 
   const getRegister = async(req, res)=>{
     const {url , method} = req
-
     try{
+      
         { 
-          res.render("register", {} );
+          res.render("register", );
         }
-    }
+         }
      catch(err){
       console.log(err);
       res.json(new WSresponse(null, err, true, 489));
@@ -51,9 +50,9 @@ const getLogin = async (req, res) => {
 
 
 const postLogin = async (req, res) => {
-    let user = req.user;
+    let username = req.username;
     res.redirect('/product');
-    //res.sendFile(path.join(__dirname,"../views/.html"));
+
 }
 export const accessController = {
     Login,

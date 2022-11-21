@@ -1,78 +1,79 @@
 import {Strategy as LocalStrategy}  from 'passport-local'
-
-//import {userController} from '../controller/indexController.js'
-//import { cartController } from '../controller/indexController.js'
-
+import logger from "../components/winstonconfig.js"
 import {indexController} from '../controller/indexController.js'
-import { WSresponse } from "../libs/WSresponse.js";
 import bcrypt from 'bcrypt'
-import {User} from "../models/userModels.js"
+import {User} from '../models/userModels.js'
 
 function hashPassword(password){
     return bcrypt.hashSync(password,bcrypt.genSaltSync(10))
 }
 
-function isValidPassword(reqPassword,dbPassword){
+function isvalidpassword(reqPassword,dbPassword){
     return bcrypt.compareSync(reqPassword,dbPassword)
 }
 
-const registerStrategy = new LocalStrategy(
-    { passReqToCallback: true },
-    async (req, email, password, done) => {
-console.log(uno)
-       try {
-        const existingUser = await User.findOne({ email });
+const registerStrategy = new LocalStrategy({passReqToCallback:true},
+async (req,username,password,done)=>{
   
-        if (existingUser) {
-          return done (null, null);
-        }
-  
-        const newUser = {
+const{nickname,address} = req.body
+    const {url , method, file} = req
+      
+    try{
+       const newUser = {
           nickname,
-          email: req.body.email,
-          password: hashPassword(password),
-          direccion: req.body.direccion,
-          avatar: req.body.avatar,
-        };
-  
-        const createdUser = await User.create(newUser);
-        req.user = nickname;
-        done(null, createdUser);
-      } catch (err) {
-        console.log("Error registrando usuario", err);
-        done("Erro en registro", null);
-      }
-    }
-  );
-/*
+            username,
+            password: hashPassword(password),
+            address,
+            avatar: `${file.filename}`
+        }
+        console.log("esperando", newUser )
+
+        const createdUser = await indexController.userController.createUser(newUser)
+
+        console.log("esperando uno", createdUser )
+
+        if(createdUser.error)
+        {
+            return done(null,null) 
+              
+        }
         const newCart = {
             userId: createdUser.id.toString(),
-            productos: [],
+            products: [],
         }
- */
-
-        const loginStrategy = new LocalStrategy(async (email, password, done) => {
-            try {
-console.log("dos")
-
-              const user = await User.findOne({ email });
-          
-              if (!user || !isValidPassword(password, user.password)) {
-                return done(null, null);
-              }
-          
-              done(null, user);
-            } catch (err) {
-              console.log("Error login", err);
-              done("Error login", null);
-            }
-          });
-
         
+        const createCart = await indexController.cartController.createCart(newCart)
+        done(null,createdUser)
+
+
+    } catch(error){
+        logger.error(` Ruta ${method}${url} error al registrar usuario`)
+        done(null,null)
+    }
+})
+
+const loginStrategy = new LocalStrategy(async (username,password,done)=>{
+    try{
+        const user = await indexController.accessController.Login({username})
+
+        if(!user || !isvalidpassword(password,user.password)){
+            //console.log("diferente")
+            return done(null)
+        }
+        done(null,user)
+
+    }catch(error)
+    {
+        logger.error('server.js error login')
+        done('Error login',null)
+    }
+
+})
 
 export const loginStrat = {
     registerStrategy,
     loginStrategy,
-   
+    logger,
     User
 }
+   

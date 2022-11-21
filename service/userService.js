@@ -1,8 +1,8 @@
 import { userDao } from "../dao/userDao.js";
+import { User } from "../models/userModels.js";
 import bcrypt from "bcrypt";
 import jwt from "../utils/jwt.js"
 import { json } from "express";
-import { User } from "../models/userModels.js";
 
 
 const hashPassword = (password) => {
@@ -15,16 +15,16 @@ const isValidPassword = (plainPassword, hashedPassword) => {
 
 
 const createUser = async (req,res) => {
-  const filters = req.email ; 
+  const filters = req.username ; 
 
-  console.log("aqui", filters)
-  const existingUser = await User.findOne({nickname:filters});
+
+  const existingUser = await User.findOne({email:filters});
   if (existingUser) {
     return JSON.stringify(new CustomError(false, "Email already in use", true, 400));
       }
       const createdUser = await User.create({
         nickname: req.nickname,
-        email: req.email,
+        email: req.username,
         password: req.password,
         address: req.address,
         avatar: req.avatar

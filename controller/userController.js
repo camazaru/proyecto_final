@@ -1,17 +1,29 @@
-import { WSresponse } from "../libs/WSresponse.js";
 import {userService} from "../service/userService.js";
+import { WSresponse } from "../libs/WSresponse.js";
 
 const createUser = async (req, res) => {
   try {
-    const createdUser = await userService.createUser(req);
-    return JSON.parse(createdUser)
+    const response = userService.createUser(req.body);
+console.log("datos", response)
+    res.json(new WSresponse(response, "User created"));
   } catch (err) {
     res.json(new WSresponse(null, "Error creating user", err, 500));
   }
 };
+/*
+  try {
+    const createdUser = await userService.createUser(req);
+    return JSON.parse(createdUser)
+  } catch (err) {
+    console.log(err);
+    if (err.statusCode) {
+      return res.status(err.statusCode).send(err);
+    }
 
-
-
+    res.sendStatus(500);
+  }
+};
+*/
 const getOneUser = async (req, res) => {
   try {
     const filters = { _id: req.params.id };
@@ -27,7 +39,6 @@ const getOneUser = async (req, res) => {
     res.sendStatus(500);
   }
 };
-
 
 const login = async (req, res) => {
   try {
