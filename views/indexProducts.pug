@@ -26,7 +26,11 @@ ul.list-products.list-unstyled
         span #{n.name}
         span.price $#{n.price}
         span.price #{n.category}
-        button.btn.btn-primary Add To Cart
+
+        
+        button.btn.btn-primary(id="btnAddProduct") Add To Cart
+        script(src="./libs/ProductFunctios.js")
+        
 
 
 

@@ -6,7 +6,7 @@ const accessRoute  = Router();
 
 accessRoute
 .route("/")
-.post(passport.authenticate("login", { failureRedirect: '/login', failureMessage:{message:"error al loguear"} }),indexController.accessController.postLogin)
+.post(passport.authenticate("login", { failureRedirect: '/register', failureMessage:{message:"error al loguear"} }),indexController.accessController.postLogin)
 .get(indexController.accessController.getLogin)
 
 export default accessRoute;
