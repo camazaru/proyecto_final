@@ -13,7 +13,9 @@ const Login = async(req, res)=>{
       {
           const filters = req
            const response = await userService.getUserOneByFilter(filters)
+           
           return response
+          
         }
   }
   catch(err){
@@ -21,10 +23,12 @@ const Login = async(req, res)=>{
   }
 }
 
+
+
 const getLogin = async (req, res) => {
     if (req.isAuthenticated()) {
  
-      var user = req.user;
+      
       res.redirect('/product');
     } else {
       res.render("login" );

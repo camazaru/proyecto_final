@@ -7,13 +7,13 @@ const productRoute  = Router();
 productRoute
   .route("/")
   .get(indexController.productController.getAllProducts)
-  .post(roleChecker.checkIfUserIsAdmin, indexController.productController.createProduct);
+  .post(indexController.productController.createProduct);
  
   productRoute
   .route("/:id")
   .get(indexController.productController.getOneProduct)
-  .put(roleChecker.checkIfUserIsAdmin, indexController.productController.updateProduct)
-  .delete(roleChecker.checkIfUserIsAdmin, indexController.productController.deleteProduct);
+  .put(indexController.productController.updateProduct)
+  .delete(indexController.productController.deleteProduct);
 
   productRoute
   .route("/:category")

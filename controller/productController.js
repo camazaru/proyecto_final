@@ -4,6 +4,8 @@ import {productService} from "../service/productService.js";
 const getAllProducts = async (req, res) => {
   try {
     const response = await productService.getAllProducts();
+
+  
     res.render("indexProducts", {Product:response} );
     
   } catch (err) {
@@ -19,7 +21,8 @@ const getAllProducts = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const response = await productService.createProduct(req.body);
-    res.json(new WSresponse(response, "Product created"));
+    res.render("indexProducts", {Product:response} );
+
   } catch (err) {
     console.log(err);
     res.status(400).json(new WSresponse(null, err, true, 400));

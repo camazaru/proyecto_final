@@ -5,8 +5,8 @@ const createUser = async (userToCreate) => {
   return createdUser;
 };
 
-const getUserByMail = async (mail) => {
-  const user = await User.findById(mail);
+const getUserByMail = async (email) => {
+  const user = await User.findById(email);
   return user;
 };
 
@@ -16,5 +16,22 @@ const getUserById = async (userId) => {
   return user;
 };
 
+const getUserByPassword = async (password) => {
+  const user = await User.findById(password);
 
-export const userDao = { createUser, getUserByMail, getUserById };
+  return user;
+};
+
+
+const getUserbyName= async (req) => {
+  //console.log("usuario dao",req)
+  const username = req
+  const user = await UsuarioModel.findOne(username)
+  //const ProductoExiste = await CarritoModel.find({ usuarioid: usuarioid})
+
+  //console.log("dao carrito",arrayProductos)
+  return user
+
+}
+
+export const userDao = { createUser, getUserByMail, getUserById, getUserByPassword, getUserbyName };

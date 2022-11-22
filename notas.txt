@@ -163,3 +163,28 @@ table.table.table-striped
     td= n.thumbnail
     td= n.category
     td= n.description
+
+
+    h2 Agregar Producto 
+form(action="/product",method="POST")
+  label(for="name" autocomplete="off") Ingresa nombre de producto
+  input#name(type="text", name="name")
+  label(for="price" autocomplete="off") Ingresa el precio
+  input#price(type="text", name="price")
+  label(for="thumbnail") Selecciona imagen
+  input#thumbnail(type="file", name="thumbnail")
+  label(for="category" autocomplete="off") Ingresa categoria
+  input#category(type="text", name="category")
+  label(for="description" autocomplete="off") Agrega descripcion
+  input#description(type="text", name="description")
+  label(for="stock" autocomplete="off") Stock 
+  input#stock(type="text", name="stock")
+  button.btn.btn-primary(type="submit" value="register") Submit
+
+br
+
+h2 Eliminar Producto
+  form(action="/product/:productId",method="DELETE")
+  label(for="productId" autocomplete="off") Ingresa ID de producto para borrar
+  input#productId(type="text", name="productId")
+  button.btn.btn-primary(type="submit" value="delete") Submit

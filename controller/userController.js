@@ -33,6 +33,7 @@ const login = async (req, res) => {
     const token = await userService.login(req.body);
     console.log(token);
     res.json({ token });
+    
   } catch (err) {
     console.log(err);
     if (err.statusCode) {

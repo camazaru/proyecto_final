@@ -1,9 +1,14 @@
+import { indexController } from "../controller/indexController.js";
 import { userDao } from "../dao/userDao.js";
 import { WSresponse } from "../libs/WSresponse.js";
 
+
 const checkIfUserIsAdmin = async (req, res, next) => {
-  const userId = req.header("userId");
-  const user = await userDao.getUserById(userId);
+  
+const user = await userDao.getUserById(userId);
+
+ 
+
 
   if (user.role !== "ADMIN") {
     res

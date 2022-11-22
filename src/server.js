@@ -62,6 +62,7 @@ app.use(session({
     loginStrat.User.findById(id,done)
   })
 
+
   app.use(express.static(path.join(__dirname, '../views')))
   app.use(express.static('avatars'))
   app.use(express.static('productsImg'))
