@@ -16,6 +16,10 @@ cartRoute
   cartRoute
   .route("/:productId")
   .get(indexController.cartController.getCartId)
+
+  cartRoute
+  .route("/:usuarioid/:productId")
+  .get(indexController.cartController.getCartId)
   
 
 

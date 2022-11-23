@@ -1,11 +1,21 @@
+$( document ).ready(function() {
+    Init()
+});
+function Init()
+{
+    $(document).on("click",".btnAddProduct",AgregarProductoCarrito)
+    $(document).on("click",".btnDetailProduct",DetalleProducto)
+    $(document).on("change","#cbxCategory",CargarCategoria)
+}
+
 
 function AgregarProductoCarrito(){
-
-    const productId = $(_id).data("productId")
-    console.log(productId)
+    const Productoid = $(this).data("id")
+    
+    
     $.ajax({
     method: "GET",
-    url: "/cart/637bb9f3f1a872a6e0f60e0e/"+productId,
+    url: "/cart/637bb9f3f1a872a6e0f60e0e/"+Productoid,
     data: {},
     success: function (result) {
         console.log(result);
