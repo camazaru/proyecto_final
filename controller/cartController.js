@@ -15,6 +15,7 @@ const createCart = async (req, res) => {
   const getCart = async (req, res) => {
     try {
       const response = await cartService.getCart(req.body);
+     
       res.render("cart", {Cart:response} );
     
     } catch (err) {
@@ -34,11 +35,51 @@ const createCart = async (req, res) => {
     }
   };
 
+  const getOneProductCart = async (req, res) => {
+    try {
+      const response = await productService.getOneProduct(req.params.id);
+  
+      res.json(new WSresponse(response, "Succes"));
+    } catch (err) {
+      console.log(err);
+      res.json(new WSresponse(null, err, true, 460));
+    }
+  };
+
+  const deleteProductCart = async (req, res) => {
+    try {
+      await productService.deleteProduct(req.params.id);
+  
+      res.json(new WSresponse(null, "Product deleted"));
+    } catch (err) {
+      console.log(err);
+      res.json(new WSresponse(null, err, true, 320));
+    }
+  };
+
+
+
+const updateCart = async (req, res) => {
+  try {
+    const response = await cartService.updateCart(
+      req.body,
+      req.params.id
+    );
+
+    res.json(new WSresponse(response, "Product updated"));
+  } catch (err) {
+    console.log(err);
+    res.json(new WSresponse(null, err, true, 489));
+  }
+};
 
 
 
 export const cartController = {
   createCart,
   getCartId,
-  getCart
+  getCart,
+  getOneProductCart,
+  deleteProductCart,
+  updateCart
 }

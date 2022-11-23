@@ -7,19 +7,9 @@ const cartRoute = Router();
 cartRoute
   .route("/")
   .post(indexController.cartController.createCart);
-  
-
-cartRoute
-  .route("/")
-  .get(indexController.cartController.getCart)
-
-  cartRoute
-  .route("/:productId")
-  .get(indexController.cartController.getCartId)
-
-  cartRoute
-  .route("/:usuarioid/:productId")
-  .get(indexController.cartController.getCartId)
+  cartRoute.get("/:idusuario", indexController.cartController.getCart);
+  cartRoute.get("/:idusuario/:idproduct", indexController.cartController.getOneProductCart);
+  cartRoute.delete("/:idusuario/:idproduct", indexController.cartController.deleteProductCart);
   
 
 

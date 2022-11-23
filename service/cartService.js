@@ -24,11 +24,38 @@ const createCart = async(req) =>{
     return data
 }
 
+const getCartByFilters = async (filters) => {
+    const data = await Cart.find(filters).lean();
+  
+    return data
+  };
+
+  const deleteCart = async (productId) => {
+    if (typeof productId !== "string") throw "Product ID must be string";
+  
+    await productDao.deleteProduct(productId);
+  };
+
+
+  const updateCart = async (userId, product) => {
+  
+    const updatedCart = await cartDao.updateCart(
+        userId, product
+    );
+  
+    return updatedCart;
+  };
+
+
 
 export const cartService = {
     getCartUserId,
     updateCartId,
     getCart,
-    createCart}
+    createCart,
+    getCartByFilters,
+    deleteCart,
+    updateCart
+}
 
   

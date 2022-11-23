@@ -4,7 +4,7 @@ import {productService} from "../service/productService.js";
 const getAllProducts = async (req, res) => {
   try {
     const response = await productService.getAllProducts();
-
+console.log("traigo todo esto", response)
   
     res.render("indexProducts", {Product:response} );
     
