@@ -60,9 +60,9 @@ const createCart = async (req, res) => {
 
 
 
-const updateCart = async (req, res) => {
+const UpdateCartProductByFilters = async (req, res) => {
   try {
-    const response = await cartService.updateCart(
+    const response = await cartService.UpdateCartProductByFilters(
       req.body,
       req.params.id
     );
@@ -78,7 +78,7 @@ const getCartUserId = async (req, res) => {
   try {
     const response = await cartService.getCartUserId(req.body);
 
-
+console.log("va respuesta", response)
     
     res.json(new WSresponse(response, "Succes"));
   } catch (err) {
@@ -93,6 +93,6 @@ export const cartController = {
   getCart,
   getOneProductCart,
   deleteProductCart,
-  updateCart,
+  UpdateCartProductByFilters,
   getCartUserId
 }

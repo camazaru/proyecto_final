@@ -1,3 +1,6 @@
+import { userInfo } from "os";
+import { User } from "../models/userModels";
+
 $( document ).ready(function() {
     Init()
 });
@@ -15,10 +18,10 @@ function AgregarProductoCarrito(){
     
     $.ajax({
     method: "GET",
-    url: "/cart/637bb9f3f1a872a6e0f60e0e/"+Productoid,
+    url: `/cart/${userInfo}/`+Productoid,
     data: {},
     success: function (result) {
-        console.log(result);
+       
     },
     dataType: "json"
     });  

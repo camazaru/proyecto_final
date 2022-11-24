@@ -30,10 +30,13 @@ const Login = async(req, res)=>{
 
 
 const getLogin = async (req, res) => {
+  
+
     if (req.isAuthenticated()) {
  
-      
-      res.redirect('/product');
+        res.redirect('/product');
+ 
+
     } else {
       res.render("login" );
     }

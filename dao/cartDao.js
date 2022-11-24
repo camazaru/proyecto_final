@@ -20,9 +20,10 @@ const getCartUserId = async (req) => {
 
 
 const UpdateCartProductByFilters = async (req) => {
-  const userId = req.userId
+  let auxiliar
+  const userId = auxiliar
   const product = req.product
-  const updateProductsCart = await Cart.updateOne({ userId: userId},{ $set: { product : product }})
+  const updateProductsCart = await Cart.updateOne({ userId},{ $set: { product : product }})
 
   return updateProductsCart
 

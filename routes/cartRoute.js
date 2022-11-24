@@ -6,7 +6,7 @@ const cartRoute = Router();
 
 cartRoute
   .route("/")
-  .post(indexController.cartController.updateCart);
+  .post(indexController.cartController.UpdateCartProductByFilters);
   cartRoute.get("/:idusuario", indexController.cartController.getCartUserId);
   cartRoute.get("/:idusuario/:idproduct", indexController.cartController.getOneProductCart);
   cartRoute.delete("/:idusuario/:idproduct", indexController.cartController.deleteProductCart);

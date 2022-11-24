@@ -15,6 +15,8 @@ const updateProduct = async (updateData, productId) => {
     { _id: productId },
     updateData
   );
+
+  console.log("actualizando producto",updatedProduct )
   return updatedProduct;
 };
 

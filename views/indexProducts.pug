@@ -11,7 +11,7 @@ body
 nav.navbar.navbar-inverse.navbar-fixed-top
   .container
     .navbar-header.main-header
-      a.navbar-brand(href='/') Pagina principal de productos
+      a.navbar-brand(href='/') Pagina principal de productos #{auxiliar}
       .navbar-right.cart-status
         p
           i.glyphicon.glyphicon-shopping-cart
@@ -27,7 +27,8 @@ ul.list-products.list-unstyled
         span #{n.name}
         span $#{n.price}
         span #{n.category}
-        button(type="button" title="Agregar a Carrito" class="btn btn-success btnAddProduct" data-id = n.name  ) Add To Cart
+        
+        button(type="button" title="Agregar a Carrito" class="btn btn-success btnAddProduct" data-id = n.id  ) Add To Cart
         
         br
 
