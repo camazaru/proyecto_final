@@ -6,8 +6,8 @@ const cartRoute = Router();
 
 cartRoute
   .route("/")
-  .post(indexController.cartController.createCart);
-  cartRoute.get("/:idusuario", indexController.cartController.getCart);
+  .post(indexController.cartController.updateCart);
+  cartRoute.get("/:idusuario", indexController.cartController.getCartUserId);
   cartRoute.get("/:idusuario/:idproduct", indexController.cartController.getOneProductCart);
   cartRoute.delete("/:idusuario/:idproduct", indexController.cartController.deleteProductCart);
   

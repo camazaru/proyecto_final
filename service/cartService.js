@@ -1,4 +1,5 @@
 import {cartDao} from "../dao/cartDao.js"
+import {Cart} from "../models/cartModels.js"
 
 const getCart = async({userId}) =>{
     const data = await cartDao.getCart({username:userId})
@@ -6,8 +7,8 @@ const getCart = async({userId}) =>{
     return data
 }
 
-const getCartUserId = async({userId , productId}) =>{
-    const data = await cartDao.getCartUserId({username:userId, product:productId})
+const getCartUserId = async({userId}) =>{
+    const data = await cartDao.getCartUserId({userId:userId})
 
     return data
 }
@@ -48,6 +49,17 @@ const getCartByFilters = async (filters) => {
 
 
 
+  const UpdateCartProductByFilters = async (filters) => {
+    const userId = filters.userId
+    const products = filters.product
+    const product = await Cart.UpdateOne({ userId},{ $set: { products }});
+  
+    return product;
+  };
+  
+
+
+
 export const cartService = {
     getCartUserId,
     updateCartId,
@@ -55,7 +67,8 @@ export const cartService = {
     createCart,
     getCartByFilters,
     deleteCart,
-    updateCart
+    updateCart,
+    UpdateCartProductByFilters
 }
 
   

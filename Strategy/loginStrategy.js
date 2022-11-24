@@ -4,6 +4,7 @@ import {indexController} from '../controller/indexController.js'
 import bcrypt from 'bcrypt'
 import {User} from '../models/userModels.js'
 import {Cart} from '../models/cartModels.js'
+import {Order} from '../models/orderModel.js'
 
 
 function hashPassword(password){
@@ -27,9 +28,7 @@ const registerStrategy = new LocalStrategy(
           return done(null, null);
         }
       
-       
-
-        const newUser = {
+       const newUser = {
             nickname: req.body.nickname,
             email: req.body.username,
             password: hashPassword(password),
@@ -39,20 +38,30 @@ const registerStrategy = new LocalStrategy(
         
         
         };
-
   
         const createdUser = await User.create(newUser);
         req.user = username;
         done(null, createdUser);
 
+
         const newCart = {
             userId: req.body.username,
-            products: "",
+            product: "",
         }
         
 
         const createCart = await Cart.create(newCart)
         done(null, createCart)
+
+        const newOrder = {
+          userId: req.body.username,
+          product: "",
+          creationDate: Date.now() ,
+          status: ""
+      }
+
+      const createOrder = await Order.create(newOrder)
+      done(null, createOrder)
 
 
       } catch (err) {

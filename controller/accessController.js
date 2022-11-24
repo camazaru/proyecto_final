@@ -7,8 +7,10 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
+
 const Login = async(req, res)=>{
   const {url , method} = req
+
   try{
       {
           const filters = req
@@ -17,7 +19,9 @@ const Login = async(req, res)=>{
           return response
           
         }
-  }
+        
+  } 
+  
   catch(err){
     res.sendStatus(500);
   }
@@ -58,7 +62,9 @@ export const accessController = {
     Login,
     getLogin,
     postLogin,
-    getRegister
+    getRegister,
+    
+    
     
 }
 

@@ -1,5 +1,6 @@
 import { WSresponse } from "../libs/WSresponse.js";
 import { cartService } from "../service/cartService.js";
+import { productService } from "../service/productService.js";
 
 const createCart = async (req, res) => {
     try {
@@ -73,7 +74,18 @@ const updateCart = async (req, res) => {
   }
 };
 
+const getCartUserId = async (req, res) => {
+  try {
+    const response = await cartService.getCartUserId(req.body);
 
+
+    
+    res.json(new WSresponse(response, "Succes"));
+  } catch (err) {
+    console.log(err);
+    res.json(new WSresponse(null, err, true, 460));
+  }
+};
 
 export const cartController = {
   createCart,
@@ -81,5 +93,6 @@ export const cartController = {
   getCart,
   getOneProductCart,
   deleteProductCart,
-  updateCart
+  updateCart,
+  getCartUserId
 }
