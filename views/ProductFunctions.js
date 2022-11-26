@@ -1,27 +1,40 @@
-import { userInfo } from "os";
-import { User } from "../models/userModels";
-
 $( document ).ready(function() {
     Init()
 });
 function Init()
 {
     $(document).on("click",".btnAddProduct",AgregarProductoCarrito)
+    $(document).on("click",".btnDeleteProduct",deleteProduct)
     $(document).on("click",".btnDetailProduct",DetalleProducto)
     $(document).on("change","#cbxCategory",CargarCategoria)
 }
 
 
 function AgregarProductoCarrito(){
-    const Productoid = $(this).data("auxiliar")
+    const Productoid = $(this).data("_id")
     
     
     $.ajax({
-    method: "GET",
-    url: `/cart/${userInfo}/`+Productoid,
+    method: "POST",
+    url: `/cart/${auxiliar}/`+Productoid,
     data: {},
     success: function (result) {
        
+    },
+    dataType: "json"
+    });  
+}
+
+
+function deleteProduct(){
+    const Productoid = $(this).data("_id")
+    
+    
+    $.ajax({
+    method: "DELETE",
+    url: "/product/"+Productoid,
+    success: function (result) {
+       alert("Producto borrado de la base de datos")
     },
     dataType: "json"
     });  

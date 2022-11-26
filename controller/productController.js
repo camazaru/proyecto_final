@@ -7,7 +7,7 @@ const getAllProducts = async (req, res) => {
     const auxiliar = req.user.email 
        
     const response = await productService.getAllProducts();
-      
+     
     res.render("indexProducts", {Product:response, auxiliar});
   
   } catch (err) {
@@ -47,6 +47,8 @@ const updateProduct = async (req, res) => {
 
 const deleteProduct = async (req, res) => {
   try {
+
+    
     await productService.deleteProduct(req.params.id);
 
     res.json(new WSresponse(null, "Product deleted"));
