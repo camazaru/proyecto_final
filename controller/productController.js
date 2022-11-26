@@ -48,7 +48,6 @@ const updateProduct = async (req, res) => {
 const deleteProduct = async (req, res) => {
   try {
 
-    
     await productService.deleteProduct(req.params.id);
 
     res.json(new WSresponse(null, "Product deleted"));
