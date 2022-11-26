@@ -13,7 +13,7 @@ function Init()
 
 
 function AgregarProductoCarrito(){
-    const Productoid = $(this).data("name")
+    const Productoid = $(this).data("auxiliar")
     
     
     $.ajax({
