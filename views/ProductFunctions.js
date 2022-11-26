@@ -43,3 +43,7 @@ function DetalleProducto(){
 function CargarCategoria(){
     window.location.href = "Product/categoria/"+$(this).val()
 }
+
+function redireccionar(pagina) {
+    location.href = pagina;
+  }
