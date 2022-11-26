@@ -14,9 +14,14 @@ const createCart = async (req, res) => {
   };
 
   const getCart = async (req, res) => {
+    
     try {
-      const response = await cartService.getCart(req.body);
-     
+      const {email} = req.user
+      
+      let userId = email
+console.log("es mi userid", userId)
+      const response = await cartService.getCart({userId});
+            
       res.render("cart", {Cart:response} );
     
     } catch (err) {
@@ -75,12 +80,12 @@ const UpdateCartProductByFilters = async (req, res) => {
 };
 
 const getCartUserId = async (req, res) => {
-  try {
-    const response = await cartService.getCartUserId(req.body);
 
-console.log("va respuesta", response)
+  try {
     
-    res.json(new WSresponse(response, "Succes"));
+    const response = await cartService.getCartUserId(req.email);
+
+          res.render("cart", {Cart:response} );
   } catch (err) {
     console.log(err);
     res.json(new WSresponse(null, err, true, 460));

@@ -11,11 +11,13 @@ body
 nav.navbar.navbar-inverse.navbar-fixed-top
   .container
     .navbar-header.main-header
-      a.navbar-brand(href='/') Pagina principal de productos #{auxiliar}
+      a.navbar-brand(href='/') Pagina principal de productos 
       .navbar-right.cart-status
         p
           i.glyphicon.glyphicon-shopping-cart
-          a(href="/cart/") (#{ numberOfProducts ? numberOfProducts : 0 })Cart
+          a(href="/cart/'#{auxiliar}'") (#{ numberOfProducts ? numberOfProducts : 0 })Cart
+          p(id="auxiliar" style="display:none" value="auxiliar") #{auxiliar}
+
 
 
 ul.list-products.list-unstyled

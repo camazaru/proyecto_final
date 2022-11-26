@@ -2,7 +2,7 @@ import {cartDao} from "../dao/cartDao.js"
 import {Cart} from "../models/cartModels.js"
 
 const getCart = async({userId}) =>{
-    const data = await cartDao.getCart({username:userId})
+    const data = await cartDao.getCart({userId})
 
     return data
 }

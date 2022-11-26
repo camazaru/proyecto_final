@@ -1,12 +1,15 @@
+import { userInfo } from "os";
 import { WSresponse } from "../libs/WSresponse.js";
 import {productService} from "../service/productService.js";
 
 const getAllProducts = async (req, res) => {
   try {
+    const auxiliar = req.user.email 
+       
     const response = await productService.getAllProducts();
+      
+    res.render("indexProducts", {Product:response, auxiliar});
   
-    res.render("indexProducts", {Product:response} );
-    
   } catch (err) {
     console.log(err);
     res
