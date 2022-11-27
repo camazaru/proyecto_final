@@ -19,7 +19,7 @@ function AgregarProductoCarrito(){
     url: `/cart/${auxiliar}/`+Productoid,
     data: {},
     success: function (result) {
-       
+        location. reload()
     },
     dataType: "json"
     });  

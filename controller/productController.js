@@ -23,7 +23,8 @@ const getAllProducts = async (req, res) => {
 const createProduct = async (req, res) => {
   try {
     const response = await productService.createProduct(req.body);
-    res.render("indexProducts", {Product:response} );
+    res.render("indexproducts", {Product:response} );
+    
 
   } catch (err) {
     console.log(err);

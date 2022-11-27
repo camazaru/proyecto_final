@@ -42,17 +42,17 @@ form(action="/product",method="POST", )
   label(for="name" autocomplete="off") Ingresa nombre
   input#name(type="text", name="name")
   label(for="price" autocomplete="off") Ingresa el precio
-  input#price(type="email", name="price")
+  input#price(type="text", name="price")
   label(for="thumbnail" autocomplete="off") Agrega imagen
   input#thumbnail(type="file", name="thumbnail")
-  label(for="category" autocomplete="off") Ingresa tu direccion
+  label(for="category" autocomplete="off") Ingresa categoria
   input#category(type="text", name="category")
   label(for="description") Descripcion del producto
   input#description(type="text", name="description")
   label(for="stock") Stock Actual
   input#stock(type="text", name="stock")
 
-  button(type="submit" value="register") Submit
+  button(type="submit" value="agregar productos") Submit
 
      
 
