@@ -12,9 +12,13 @@ const getAllProducts = async(req, res)=>{
     const auxiliar = req.user.email 
    
     const response = await productService.getAllProducts();
+    const auxProducts = response[0].Product
+
+
+  
 
      
-    res.render("indexProducts", {Product:response[0].Product, category: response[0].Category, auxiliar});
+    res.render("indexProducts", {Product:response[0].Product, category: response[0].Category, auxiliar, auxProducts});
   
   } catch (err) {
     console.log(err);
@@ -56,6 +60,7 @@ const deleteProduct = async (req, res) => {
   try {
 
     await productService.deleteProduct(req.params.id);
+
     res.render("indexproducts", {} );
 
   } catch (err) {

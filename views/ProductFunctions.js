@@ -29,7 +29,7 @@ function AgregarProductoCarrito(){
 /* ******************** No mover ******************** */ 
 
 function deleteProduct(){
-    const Productoid = $(this).data("_id")
+    const Productoid = $(this).data("id")
     
   
     $.ajax({

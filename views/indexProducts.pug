@@ -30,8 +30,9 @@ ul.list-products.list-unstyled
         span #{n.name}
         span $#{n.price}
         span #{n.category}
+        span(style: "display: none") #{n._id}
         button(type="button" title="Agregar a Carrito" class="btn btn-success btnAddProduct" data-id = n._id  ) Add To Cart
-        button(type="button" title="Eliminar de BD", class="btn btn-danger btnDeleteProduct" data-id = todoProduct   ) Eliminar de BD
+        button(type="button" title="Eliminar de BD", class="btn btn-danger btnDeleteProduct" data-id = n.id) Eliminar de BD
 
         br
 
