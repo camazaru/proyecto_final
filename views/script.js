@@ -4,3 +4,13 @@ fetch("/api/productos-test").then(async(data) => {
         socket.emit('client:product', response)
 });
 
+
+
+    function redireccionar(pagina) {
+        location.href = pagina;
+    } 
+
+    function volver() {
+        console.log('volver');
+        redireccionar('/register')
+    }

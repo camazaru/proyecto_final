@@ -6,8 +6,8 @@ const createCart = async (req) => {
 };
 
 
-const getCart = async({userId}) =>{
-    const data = await Cart.find({ userId: userId})  
+const getCart = async({userId, productId}) =>{
+    const data = await Cart.find({ userId: userId}, {products: 1, _id: 0 })  
     return data
 }
 
@@ -29,7 +29,15 @@ const UpdateCartProductByFilters = async (req) => {
 
 }
 
+const updateCartId = async (req) => {
+  const userId = req.userId
+  const product = req.product
+  const updateProductCart = await Cart.updateOne({ userId: userId},{ $set: { product : product }})
 
+  //console.log("dao carrito",arrayProductos)
+  return updateProductCart
+
+}
 
 
 
@@ -37,6 +45,7 @@ export const cartDao = {
     getCartUserId,
     getCart,
     createCart,
-    UpdateCartProductByFilters
+    UpdateCartProductByFilters,
+    updateCartId
   }
 

@@ -8,10 +8,18 @@ head
 body
 h1 Ingresa tus datos para acceder a la pagina
 
+div 
 form(action="/login",method="POST", )
   label(for="email" autocomplete="off") Ingresa tu email
   input#email(type="text", name="username")
   label(for="password" autocomplete="off") Ingresa tu password
   input#password(type="text", name="password")
   br    
-  button(type="submit") Submit  
+  button(type="submit") Submit 
+
+div
+  button(onclick= "volver()") Registrar
+
+script(src="script.js") 
+
+

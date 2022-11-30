@@ -51,7 +51,9 @@ const deleteProduct = async (req, res) => {
 
     await productService.deleteProduct(req.params.id);
 
-    res.json(new WSresponse(null, "Product deleted"));
+
+    res.render("indexproducts", {} );
+
   } catch (err) {
     console.log(err);
     res.json(new WSresponse(null, err, true, 320));
