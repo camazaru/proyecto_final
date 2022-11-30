@@ -44,7 +44,7 @@ const updateProduct = async ({ title, price, stock }, productId) => {
 
 const deleteProduct = async (productId) => {
 
-  console.log("que trae", productId)
+
   if (typeof productId !== "string") throw "Product ID must be string";
 
   await productDao.deleteProduct(productId);

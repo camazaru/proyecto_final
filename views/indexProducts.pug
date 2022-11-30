@@ -30,9 +30,8 @@ ul.list-products.list-unstyled
         span #{n.name}
         span $#{n.price}
         span #{n.category}
-        
         button(type="button" title="Agregar a Carrito" class="btn btn-success btnAddProduct" data-id = n._id  ) Add To Cart
-        button(type="button" title="Eliminar de BD", class="btn btn-danger btnDeleteProduct" data-id = n._id ) Eliminar de BD
+        button(type="button" title="Eliminar de BD", class="btn btn-danger btnDeleteProduct" data-id = todoProduct   ) Eliminar de BD
 
         br
 
@@ -59,5 +58,6 @@ form(action="/product",method="POST", )
 script(src="ProductFunctions.js")
 script(src="https://code.jquery.com/jquery-3.1.1.min.js")
 script(src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js')
+
 
 

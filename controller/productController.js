@@ -1,14 +1,20 @@
+import logger from "../components/winstonconfig.js"
 import { userInfo } from "os";
 import { WSresponse } from "../libs/WSresponse.js";
 import {productService} from "../service/productService.js";
 
-const getAllProducts = async (req, res) => {
+const getAllProducts = async(req, res)=>{
+  const {url , method} = req
+
+  
   try {
+  
     const auxiliar = req.user.email 
-       
+   
     const response = await productService.getAllProducts();
+
      
-    res.render("indexProducts", {Product:response, auxiliar});
+    res.render("indexProducts", {Product:response[0].Product, category: response[0].Category, auxiliar});
   
   } catch (err) {
     console.log(err);
@@ -50,8 +56,6 @@ const deleteProduct = async (req, res) => {
   try {
 
     await productService.deleteProduct(req.params.id);
-
-
     res.render("indexproducts", {} );
 
   } catch (err) {
