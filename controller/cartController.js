@@ -1,28 +1,34 @@
 import { WSresponse } from "../libs/WSresponse.js";
 import { cartService } from "../service/cartService.js";
 import { productService } from "../service/productService.js";
+import { Cart } from "../models/cartModels.js";
 
 const createCart = async (req, res) => {
-    try {
-      const response = await cartService.createCart(req.body);
-      res.json(new WSresponse(response, "Cart created"));
+  try {
     
-    } catch (err) {
-      console.log(err);
-      res.status(400).json(new WSresponse(null, err, true, 400));
+    const response = await cartService.createCart(req);
+
+    return response
+  } catch (err) {
+    console.log(err);
+    if (err.statusCode) {
+      return res.status(statusCode).send(err);
     }
-  };
+
+    res.sendStatus(500);
+  }
+};
 
   const getCart = async (req, res) => {
-    
-    try {
+      try {
+
       const {email} = req.user
-      
-      let userId = email
-console.log("es mi userid", userId)
-      const response = await cartService.getCart({userId});
-            
-      res.render("cart", {Cart:response} );
+      const userId = email
+
+      const response = await cartService.getCart(userId);
+      console.log("revision nueva resuelto", response) 
+
+      res.render("cart", {Cart:response},  );
     
     } catch (err) {
       console.log(err);

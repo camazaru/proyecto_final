@@ -2,8 +2,9 @@ import {cartDao} from "../dao/cartDao.js"
 import {Cart} from "../models/cartModels.js"
 
 const getCart = async({userId}) =>{
+  console.log("estoy en el dao1", userId)
     const data = await cartDao.getCart({userId})
-
+console.log("estoy en el dao2", data)
     return data
 }
 

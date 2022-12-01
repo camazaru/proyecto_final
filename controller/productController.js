@@ -14,10 +14,7 @@ const getAllProducts = async(req, res)=>{
     const response = await productService.getAllProducts();
     const auxProducts = response[0].Product
 
-
-  
-
-     
+   
     res.render("indexProducts", {Product:response[0].Product, category: response[0].Category, auxiliar, auxProducts});
   
   } catch (err) {
@@ -61,7 +58,7 @@ const deleteProduct = async (req, res) => {
 
     await productService.deleteProduct(req.params.id);
 
-    res.render("indexproducts", {} );
+   
 
   } catch (err) {
     console.log(err);
@@ -83,7 +80,7 @@ const getProductById = async (req, res) => {
 const getProductByCategory = async (req, res) => {
   try {
     const response = await productService.getProductByCategory();
-    console.log(response)
+    
     res.render("indexProductsCategory", {Product:response} );
     
   } catch (err) {
@@ -106,6 +103,48 @@ const getOneProduct = async (req, res) => {
 };
 
 
+const getProductByFilters = async (req, res) => {
+  try {
+    const {id,category} = req.params
+    let filters
+    if (typeof id !== 'undefined') {
+      filters = { _id: id };
+    }
+    else
+    {
+      filters = { category: category };
+      console.log("data filters:", filters)
+    }   
+    const response = await productService.getProductByFilters(filters);
+    console.log("data response controller:", response);
+    
+    if (response.length == 0)
+    {
+      res.json({error: "Este producto no existe"})
+    }
+    else{
+      if (typeof id !== 'undefined') {
+
+        res.render("productDetails", {product:response[0].product[0]} );
+      }
+      else
+
+      {
+        console.log("llegue a la funcion filter")
+
+        res.render("productsCategory", {product:response[0].product, category:response[0].category} );
+      }
+    }
+
+  } catch (err) {
+    if (err.statusCode) {
+      return res.status(statusCode).send(err);
+    }
+
+    res.sendStatus(500);
+  }
+};
+
 
 export const productController = {
     getAllProducts,
@@ -115,5 +154,6 @@ export const productController = {
     deleteProduct,
     getProductByCategory,
     getProductById,
-    getOneProduct
+    getOneProduct,
+    getProductByFilters
   };

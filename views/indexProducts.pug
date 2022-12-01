@@ -16,7 +16,8 @@ nav.navbar.navbar-inverse.navbar-fixed-top
       .navbar-right.cart-status
         p
           i.glyphicon.glyphicon-shopping-cart
-          a(href="/cart/'#{auxiliar}'") (#{ numberOfProducts ? numberOfProducts : 0 })Ir a carrito
+        
+          a(href="/cart/" + auxiliar) Ir a carrito
           p(id="auxiliar" style="display:none" value="auxiliar") #{auxiliar}
 
 
@@ -31,8 +32,8 @@ ul.list-products.list-unstyled
         span $#{n.price}
         span #{n.category}
         span(style: "display: none") #{n._id}
-        button(type="button" title="Agregar a Carrito" class="btn btn-success btnAddProduct" data-id = n._id  ) Add To Cart
-        button(type="button" title="Eliminar de BD", class="btn btn-danger btnDeleteProduct" data-id = n.id) Eliminar de BD
+        button(type="button" title="Agregar a Carrito" class="btn btn-success btnAddProduct" data-id = n.id data-usr = auxiliar ) Add To Cart
+        button(type="button" title="Eliminar de BD", class="btn btn-danger btnDeleteProduct" data-id = n.id data-usr = auxiliar) Eliminar de BD
 
         br
 

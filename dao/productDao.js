@@ -1,5 +1,6 @@
 import { Product } from "../models/productModels.js";
 
+
 const getAllProducts = async (req, res) => {
   let ProductosDB = []
   let dataProduct = []
@@ -47,8 +48,8 @@ const updateProduct = async (updateData, productId) => {
 };
 
 const deleteProduct = async (productId) => {
-  console.log("productId", productId)
-  const productDelete = await Product.deleteOne({ _id: productId });
+ const productDelete = await Product.deleteOne({ _id: productId });
+
 
 };
 

@@ -27,6 +27,12 @@ const getProductByCategory = async (category) => {
   return data;
 };
 
+const getProductByFilters = async(filters) =>{
+  const data = await productDao.getProductByFilters(filters)
+  console.log("valid info service filter:",data);
+  return data
+}
+
 
 const updateProduct = async ({ title, price, stock }, productId) => {
   if (typeof title !== "string") throw "Title must be string";
@@ -65,6 +71,7 @@ export const productService = {
   updateProduct,
   deleteProduct,
   getOneProduct,
+  getProductByFilters
   
     
   };

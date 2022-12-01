@@ -11,12 +11,13 @@ function Init()
 
 
 function AgregarProductoCarrito(){
-    const Productoid = $(this).data("_id")
-    
+    const productId = $(this).data("id")
+    const auxiliar = $(this).data("usr")
+   
     
     $.ajax({
     method: "POST",
-    url: `/cart/${auxiliar}/`+Productoid,
+    url: `/cart/${auxiliar}/`+productId,
     data: {},
     success: function (result) {
         location. reload()
@@ -30,13 +31,13 @@ function AgregarProductoCarrito(){
 
 function deleteProduct(){
     const Productoid = $(this).data("id")
-    
+   
   
     $.ajax({
     method: "DELETE",
     url: "/product/"+Productoid,
     success: function (result) {
-       alert("Producto borrado de la base de datos")
+  
        location. reload()
     },
     dataType: "json"
@@ -47,6 +48,7 @@ function deleteProduct(){
 
 function DetalleProducto(){
     const Productoid = $(this).data("productoid")
+     
     $.ajax({
     method: "GET",
     url: "/product/"+Productoid,
@@ -65,3 +67,7 @@ function CargarCategoria(){
 function redireccionar(pagina) {
     location.href = pagina;
   }
+
+  function CargaProductos(){
+    window.location.href = "Product/"
+}

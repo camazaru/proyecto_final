@@ -1,10 +1,7 @@
 import multer from 'multer'
-
-function loadAvatar(){
-    
+function subirAvatar(){
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
-          
             cb(null, 'avatars')
         },
         filename: (req, file, cb) => {
@@ -14,7 +11,7 @@ function loadAvatar(){
     const upload = multer({ storage })
     return upload
 }
-function loadImgProduct(){
+function subirImgProduct(){
     const storage = multer.diskStorage({
         destination: (req, file, cb) => {
             cb(null, 'productsImg')
@@ -27,4 +24,4 @@ function loadImgProduct(){
     return upload
 }
 
-export const multerConfig = {loadAvatar, loadImgProduct}
+export default {subirAvatar,subirImgProduct}
